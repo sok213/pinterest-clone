@@ -7,11 +7,6 @@ _              = require('lodash'),
 // Retrieve Modules.
 const router = express.Router();
 
-// Private route for profile settings.
-router.get('/settings', (req, res) => {
-  res.render('settings');
-});
-
 // Private route for user profile.
 router.get('/myprofile', authenticate, (req, res) => {
   res.render('myprofile');

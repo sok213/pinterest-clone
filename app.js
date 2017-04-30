@@ -69,7 +69,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || req.twitterUser || null;
-  res.locals.title = 'My application';
+  res.locals.title = 'Winterest';
   res.locals.getLength = (trades) => {
     return trades.length;
   };
