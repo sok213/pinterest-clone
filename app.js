@@ -48,6 +48,9 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // Set module folder 
 app.use('/font-awesome', express.static(__dirname + 
   '/node_modules/font-awesome'));
+  
+app.use('/masonry-layout', express.static(__dirname + 
+  '/node_modules/masonry-layout'));
 
 // Configure session module.
 app.use(session({

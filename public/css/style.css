@@ -5,6 +5,40 @@ html, body {
   overflow-x: hidden;
  }
 
- body {
-   overflow-y: hidden;
- }
+body {
+ overflow-y: hidden;
+}
+
+.invisible-form {
+  visibility: hidden;
+}
+ 
+/* Masonry Style */  
+.grid {
+  width: 100%;
+}
+ 
+.grid-item { 
+  background-color: white;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 5px;
+}
+
+.grid-item--width2 { 
+  width: 100%;
+  border: thin solid red;
+}
+
+.grid-content {
+  padding: 5px;
+  padding-bottom: 0px;
+  -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.63);
+  -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.63);
+  box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.63);
+}
+
+.image {
+  height: auto;
+  width: 100%;
+}

@@ -29,27 +29,19 @@ router.post('/login', passport.authenticate('local',
     failureFlash: true
   }), 
   (req, res) => {
-    res.redirect('/');
+    res.redirect('/users/myprofile');
 });
 
 // GET /login-twitter to sign-in with Twitter account.
-// router.get('/login-twitter', passport.authenticate('twitter', 
-//   { successRedirect: '/', 
-//     failureRedirect: '/login', 
-//     failureFlash: true
-//   }), 
-//   (req, res) => {
-//     res.redirect('/');
-// });
-
 router.get('/login-twitter',
   passport.authenticate('twitter'));
 
+// Twitter authentication callback url.
 router.get('/login-twitter/callback', 
   passport.authenticate('twitter', { failureRedirect: '/login' }),
   (req, res) => {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/users/myprofile');
 });
 
 // Logout the user.

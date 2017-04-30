@@ -1,4 +1,26 @@
+<link rel="stylesheet" href="/css/myprofile.css">
 <div class="container">
-  <h1>My profile</h1>
+  <div class="col-md-6">
+    <form class="form-group" action="/users/add-image-link" method="post">
+      <label>Add an image</label>
+      <input class="form-control" type="text" name="imageLink" value="" placeholder="Provide an image URL link"> <br>
+      <button type="submit" class="btn btn-primary">Add image</button>
+    </form>
+  </div>
   
+</div>
+
+<div class="center-text">
+  <h2>My Images</h2>
+</div>
+
+<div class="grid">
+{{#each user.images}}
+  <div class="grid-item">
+    <div class="grid-content">
+      <img class="image" src={{this.imageURL}} alt="Default placeholder image">
+      <button type="submit" class="btn btn-default"><i class="fa fa-times" aria-hidden="true"></i>Remove</button>
+    </div>
+  </div>
+{{/each}}
 </div>

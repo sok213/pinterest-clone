@@ -11,6 +11,9 @@ let TwitterUserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  images: {
+    type: Array
   }
 });
 

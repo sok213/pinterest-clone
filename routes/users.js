@@ -2,6 +2,7 @@
 const express  = require('express'),
 _              = require('lodash'),
 {User}         = require('./../models/user'),
+{TwitterUser}  = require('./../models/twitter-user'),
 {authenticate} = require('./../middleware/authenticate');
 
 // Retrieve Modules.
@@ -10,6 +11,30 @@ const router = express.Router();
 // Private route for user profile.
 router.get('/myprofile', authenticate, (req, res) => {
   res.render('myprofile');
+});
+
+// POST /add-image-link for adding image links to profile.
+router.post('/add-image-link', authenticate, (req, res) => {
+  let user = res.locals.user;
+  let imageURL = req.body.imageLink;
+  
+  if(user.twitterId) {
+    TwitterUser.findByIdAndUpdate(user._id, 
+      { $push: { images: { imageURL }} }, 
+      (err, user) => {
+      
+    });
+    
+    return res.redirect('/users/myprofile');
+  }
+  
+  User.findByIdAndUpdate(user._id, 
+    { $push: { images: { imageURL }} }, 
+    (err, user) => {
+    
+  });
+  
+  return res.redirect('/users/myprofile');
 });
 
 // POST /users/register for users to create a new account.
@@ -38,7 +63,7 @@ router.post('/register', (req, res) => {
   User.find({username: body.username}, (err, result) => {
     if(err) throw err;
     if(result[0]) {
-      return res.render('register', {
+      return res.render('sign-up', {
         errors: [{msg: 'Username already exists!'}]
       });
     }
@@ -55,6 +80,10 @@ router.post('/register', (req, res) => {
       
       // Send back the user document after new user is saved.
       res.redirect('/login');
+    }).catch((err) => {
+      res.render('sign-up', {
+        errors: [{msg: 'Email already exists!'}]
+      });
     });
   });
 });
