@@ -156,16 +156,11 @@ passport.use(new TwitterStrategy({
 ));
 
 // Serialize and deserialize user instances to and from the Passport session.
-// A session will be established and maintained via a cookie set in the 
-// user's browser.
 passport.serializeUser((user, done) => {
-  console.log('SERIALIZE USER WITH USER ID: ' + (user.id || user.twitterId ));
-  // The user ID is serialized to the session.
   done(null, user.id || user.twitterId);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('DESERIALIZE USER.');
   User.getUserById(id, (err, user) => {
     if(user) {
       return done(err, user);
@@ -180,5 +175,12 @@ passport.deserializeUser((id, done) => {
 // Set routes.
 app.use('/', indexRoute);
 app.use('/users', userRoute);
+
+// Public route for 404 page.
+app.get('*', (req, res) => {
+  res.status(404).render('404', {
+    error_msg: 'Page not found.'
+  });
+});
 
 app.listen(port, () => console.log('Listening on PORT: ', port));

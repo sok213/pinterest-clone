@@ -14,7 +14,7 @@ router.get('/settings', (req, res) => {
 
 // Private route for user profile.
 router.get('/myprofile', authenticate, (req, res) => {
-  res.send(req.user);
+  res.render('myprofile');
 });
 
 // POST /users/register for users to create a new account.
@@ -61,6 +61,13 @@ router.post('/register', (req, res) => {
       // Send back the user document after new user is saved.
       res.redirect('/login');
     });
+  });
+});
+
+// Public route for 404 page.
+router.get('*', (req, res) => {
+  res.status(404).render('404', {
+    error_msg: 'Page not found.'
   });
 });
 
