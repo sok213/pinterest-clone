@@ -5,6 +5,9 @@ const configValues = require('./config');
 // into a string.
 module.exports = {
   getDbConnectionString: () => {
-    return 'mongodb://admin:admin@ds045618.mlab.com:45618/pinterest-clone';
-  }
+    return `mongodb://${configValues.user}:${configValues.pwd}` + 
+    '@ds045618.mlab.com:45618/pinterest-clone';
+  },
+  TWITTER_CONSUMER_KEY: configValues.TWITTER_CONSUMER_KEY,
+  TWITTER_CONSUMER_SECRET: configValues.TWITTER_CONSUMER_SECRET
 };

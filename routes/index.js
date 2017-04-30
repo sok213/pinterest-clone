@@ -8,13 +8,8 @@ const router = express.Router();
 
 // Public route for home page.
 router.get('/', (req, res) => {
-  console.log(res.locals);
-  // Find all books posted by every user and send it back to client.
-  User.find({}, ['-email', '-city', '-state'], (err, doc) => {
-    res.render('home', {
-      books: doc
-    });
-  });
+  //console.log(res.locals);
+  res.render('home');
 });
 
 // Public route for sign up.
@@ -34,6 +29,26 @@ router.post('/login', passport.authenticate('local',
     failureFlash: true
   }), 
   (req, res) => {
+    res.redirect('/');
+});
+
+// GET /login-twitter to sign-in with Twitter account.
+// router.get('/login-twitter', passport.authenticate('twitter', 
+//   { successRedirect: '/', 
+//     failureRedirect: '/login', 
+//     failureFlash: true
+//   }), 
+//   (req, res) => {
+//     res.redirect('/');
+// });
+
+router.get('/login-twitter',
+  passport.authenticate('twitter'));
+
+router.get('/login-twitter/callback', 
+  passport.authenticate('twitter', { failureRedirect: '/login' }),
+  (req, res) => {
+    // Successful authentication, redirect home.
     res.redirect('/');
 });
 

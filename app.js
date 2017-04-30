@@ -1,21 +1,27 @@
-const express  = require('express'),
-path           = require('path'),
-mongoose       = require('mongoose'),
-config         = require('./config'),
-bodyParser     = require('body-parser'),
-expressValid   = require('express-validator'),
-app            = express(),
-session        = require('express-session'),
-cookieParser   = require('cookie-parser'),
-passport       = require('passport'),
-LocalStrategy  = require('passport-local').Strategy,
-flash          = require('connect-flash'),
-{User}         = require('./models/user'),
-{authenticate} = require('./middleware/authenticate'),
-{ObjectID}     = require('mongodb'),
-handleBars     = require('express-handlebars'),
-port           = process.env.PORT || 3000,
-db             = mongoose.connect(config.getDbConnectionString());
+const express   = require('express'),
+path            = require('path'),
+mongoose        = require('mongoose'),
+config          = require('./config'),
+bodyParser      = require('body-parser'),
+expressValid    = require('express-validator'),
+app             = express(),
+session         = require('express-session'),
+cookieParser    = require('cookie-parser'),
+passport        = require('passport'),
+LocalStrategy   = require('passport-local').Strategy,
+TwitterStrategy = require('passport-twitter').Strategy,
+flash           = require('connect-flash'),
+{User}          = require('./models/user'),
+{TwitterUser}   = require('./models/twitter-user'),
+{authenticate}  = require('./middleware/authenticate'),
+{ObjectID}      = require('mongodb'),
+handleBars      = require('express-handlebars'),
+port            = process.env.PORT || 3000,
+db              = mongoose.connect(config.getDbConnectionString());
+
+// Retrieve TwitterStrategy config values.
+const TWITTER_CONSUMER_SECRET = config.TWITTER_CONSUMER_SECRET,
+TWITTER_CONSUMER_KEY          = config.TWITTER_CONSUMER_KEY;
 
 // Retrieve initial route.
 const indexRoute = require('./routes/index'),
@@ -62,7 +68,7 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
-  res.locals.user = req.user || null;
+  res.locals.user = req.user || req.twitterUser || null;
   res.locals.title = 'My application';
   res.locals.getLength = (trades) => {
     return trades.length;
@@ -123,17 +129,51 @@ passport.use(new LocalStrategy(
   }
 ));
 
+// Configure the Passport TwitterStrategy for sign-in authentication.
+passport.use(new TwitterStrategy({
+    consumerKey: TWITTER_CONSUMER_KEY,
+    consumerSecret: TWITTER_CONSUMER_SECRET,
+    callbackURL: 'http://localhost:3000/login-twitter/callback'
+  },
+  function(token, tokenSecret, profile, cb) {
+    TwitterUser.findOrCreate(profile, function (err, user) {
+      // If user twitter user does not exist, create a new doc.
+      console.log("USER: ", user);
+      if(!user[0]) {
+        // Create new Twitter user instance.
+        let twitterUser = new TwitterUser({
+          username: profile.username,
+          twitterId: profile.id
+        });
+        
+        // Saves user.
+        twitterUser.save();
+        return cb(err, twitterUser);
+      }
+      return cb(err, user[0]);
+    });
+  }
+));
+
 // Serialize and deserialize user instances to and from the Passport session.
 // A session will be established and maintained via a cookie set in the 
 // user's browser.
 passport.serializeUser((user, done) => {
+  console.log('SERIALIZE USER WITH USER ID: ' + (user.id || user.twitterId ));
   // The user ID is serialized to the session.
-  done(null, user.id);
+  done(null, user.id || user.twitterId);
 });
 
 passport.deserializeUser((id, done) => {
+  console.log('DESERIALIZE USER.');
   User.getUserById(id, (err, user) => {
-    done(err, user);
+    if(user) {
+      return done(err, user);
+    }
+    
+    TwitterUser.getUserById(id, (err, user) => {
+      return done(err, user);
+    });
   });
 });
 

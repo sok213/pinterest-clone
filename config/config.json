@@ -1,4 +1,6 @@
 {
   "user": "admin",
-  "pwd": "0000"
+  "pwd": "admin",
+  "TWITTER_CONSUMER_KEY": "uzPvQcEK7QXqHNWXvHXDKamum",
+  "TWITTER_CONSUMER_SECRET": "hU56VLdmguXy3LRw2wGnMGQ4Iqd2bRW37uXk5ORZOUe3MlF6lY"
 }
