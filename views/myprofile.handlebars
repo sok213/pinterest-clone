@@ -16,11 +16,13 @@
 
 <div class="grid">
 {{#each user.images}}
-  <div class="grid-item">
+  <div class="grid-item" id={{this.imageId}}>
     <div class="grid-content">
       <img class="image" src={{this.imageURL}} alt="Default placeholder image">
-      <button type="submit" class="btn btn-default"><i class="fa fa-times" aria-hidden="true"></i>Remove</button>
+      <button onclick="removeImage({{convertjson this.imageId}})" class="btn btn-default"><i class="fa fa-times" aria-hidden="true"></i>Remove</button>
     </div>
   </div>
 {{/each}}
 </div>
+
+<script type="text/javascript" src="/js/myprofile.js"></script>

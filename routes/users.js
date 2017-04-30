@@ -1,5 +1,6 @@
 // Default Modules.
 const express  = require('express'),
+mongoose       = require('mongoose'),
 _              = require('lodash'),
 {User}         = require('./../models/user'),
 {TwitterUser}  = require('./../models/twitter-user'),
@@ -10,7 +11,13 @@ const router = express.Router();
 
 // Private route for user profile.
 router.get('/myprofile', authenticate, (req, res) => {
-  res.render('myprofile');
+  res.render('myprofile', {
+    helpers: {
+      convertjson: function(context) {
+        return JSON.stringify(context);
+      } 
+    }
+  });
 });
 
 // POST /add-image-link for adding image links to profile.
@@ -20,21 +27,50 @@ router.post('/add-image-link', authenticate, (req, res) => {
   
   if(user.twitterId) {
     TwitterUser.findByIdAndUpdate(user._id, 
-      { $push: { images: { imageURL }} }, 
-      (err, user) => {
-      
-    });
+      { $push: { images: { 
+        imageURL,
+        imageId: mongoose.Types.ObjectId()
+      }} }, 
+      (err, user) => { 
+        // Callback that does nothing 
+      });
     
     return res.redirect('/users/myprofile');
   }
   
   User.findByIdAndUpdate(user._id, 
-    { $push: { images: { imageURL }} }, 
+    { $push: { images: { 
+      imageURL,
+      imageId: mongoose.Types.ObjectId()
+    }} }, 
     (err, user) => {
-    
-  });
+      // Callback that does nothing 
+    });
   
   return res.redirect('/users/myprofile');
+});
+
+// POST /remove-image for removing image from profile.
+router.post('/remove-image', authenticate, (req, res) => {
+  let user = res.locals.user;
+  let imageId = req.body.imageId;
+  
+  if(user.twitterId) {
+    TwitterUser.findByIdAndUpdate(user._id, 
+      { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 
+      (err, user) => {
+        if(err) { return console.log(err); }
+        console.log('Removed image.');
+    });
+    
+  } else {
+    User.findByIdAndUpdate(user._id, 
+      { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 
+      (err, user) => {
+        if(err) { return console.log(err); }
+        console.log('Removed image.');
+    });
+  }
 });
 
 // POST /users/register for users to create a new account.

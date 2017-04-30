@@ -24,13 +24,10 @@ router.get('/signup', (req, res) => {
 
 // POST /login to sign-in existing users.
 router.post('/login', passport.authenticate('local', 
-  { successRedirect: '/', 
+  { successRedirect: '/users/myprofile', 
     failureRedirect: '/login', 
     failureFlash: true
-  }), 
-  (req, res) => {
-    res.redirect('/users/myprofile');
-});
+  }));
 
 // GET /login-twitter to sign-in with Twitter account.
 router.get('/login-twitter',

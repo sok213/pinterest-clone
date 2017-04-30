@@ -2,7 +2,7 @@ $(document).ready(function(){
   // Detect broken images and replace with default placeholder.
  $("img").bind("error",function(){
   // Replacing image source
-  $(this).attr("src","/assets/images/placeholder.jpg");
+  $(this).attr("src","/assets/images/placeholder.png");
  });
  
  // Refresh the masonry layout every 1 second.
