@@ -72,7 +72,7 @@ app.use((req, res, next) => {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.user = req.user || req.twitterUser || null;
-  res.locals.title = 'Winterest';
+  res.locals.title = 'MyInterest';
   res.locals.getLength = (trades) => {
     return trades.length;
   };
@@ -141,7 +141,6 @@ passport.use(new TwitterStrategy({
   function(token, tokenSecret, profile, cb) {
     TwitterUser.findOrCreate(profile, function (err, user) {
       // If user twitter user does not exist, create a new doc.
-      console.log("USER: ", user);
       if(!user[0]) {
         // Create new Twitter user instance.
         let twitterUser = new TwitterUser({

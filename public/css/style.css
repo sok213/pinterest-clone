@@ -9,6 +9,15 @@ body {
  overflow-y: hidden;
 }
 
+.header-text {
+  font-family: 'Calligraffitti', cursive;
+}
+
+h2 {
+  font-size: 45px;
+  padding-bottom: 10px;
+}
+
 #home, #my-profile, #public-view, #login {
   color: grey;
   opacity: 0.9;
@@ -24,7 +33,9 @@ body {
   text-align: center;
   padding-bottom: 10px;
   margin-bottom: 20px;
-  border-bottom: thin solid rgb(119, 119, 119);
+  -webkit-box-shadow: 1px 5px 5px -2px rgba(0,0,0,0.33);
+  -moz-box-shadow: 1px 5px 5px -2px rgba(0,0,0,0.33);
+  box-shadow: 1px 5px 5px -2px rgba(0,0,0,0.33);
 }
 
 .navbar-brand {
@@ -46,11 +57,18 @@ body {
  
 /* Masonry Style */  
 .grid {
+  margin-top: -20px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  height: 100%;
   width: 100%;
+  background: url('/assets/images/pinkdust.png');
+  -webkit-box-shadow: inset 1px -1px 5px 0px rgba(0,0,0,0.4);
+  -moz-box-shadow: inset 1px -1px 5px 0px rgba(0,0,0,0.4);
+  box-shadow: inset 1px -1px 5px 0px rgba(0,0,0,0.4);
 }
  
 .grid-item { 
-  background-color: white;
   min-width: 200px;
   max-width: 400px;
   padding: 5px;
@@ -62,6 +80,7 @@ body {
 }
 
 .grid-content {
+  background-color: white;
   border-radius: 5px;
   padding: 5px;
   padding-bottom: 0px;
