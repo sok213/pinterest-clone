@@ -7,7 +7,7 @@
     <div class="grid-item">
       <div class="grid-content">
         <img class="image" src={{this.imageURL}} alt="Default placeholder image" onerror="imgError(this);">
-        <button class="btn btn-default view-more-btn">View More from Poster</button>
+        <a class="btn btn-default view-more-btn" href="/view-profile/{{this.uploader.userId}}">View More from {{this.uploader.username}}</a>
       </div>
     </div>
   {{/each}}

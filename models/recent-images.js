@@ -7,6 +7,14 @@ let RecentImagesSchema = new mongoose.Schema({
   imageId: {
     type: String,
     required: true
+  },
+  uploader: {
+    username: {
+      type: String
+    },
+    userId: {
+      type: String
+    }
   }
 });
 

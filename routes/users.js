@@ -30,7 +30,11 @@ router.post('/add-image-link', authenticate, (req, res) => {
   // Save image to RecentImages document.
   let newImage = new RecentImages({
     imageURL,
-    imageId
+    imageId,
+    uploader: {
+      username: user.username,
+      userId:  user._id
+    }
   });
   
   newImage.save();

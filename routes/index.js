@@ -1,6 +1,7 @@
 const express  = require('express'),
 _              = require('lodash'),
 {User}         = require('./../models/user'),
+{TwitterUser}  = require('./../models/twitter-user'),
 {RecentImages} = require('./../models/recent-images'),
 passport       = require('passport');
 
@@ -9,7 +10,7 @@ const router = express.Router();
 
 // Public route for home page.
 router.get('/', (req, res) => {
-  
+  console.log(res.locals.user);
   // Retrieve 10 most recent images and display to home page.
   let findRecent20 = RecentImages.find({}).sort({$natural:-1}).limit(20);
   findRecent20.exec((err, images) => {
@@ -46,6 +47,32 @@ router.get('/login-twitter/callback',
   (req, res) => {
     // Successful authentication, redirect home.
     res.redirect('/users/myprofile');
+});
+
+// POST /view-profile/:id to view public profile of a user.
+router.get('/view-profile/:id', (req, res) => {
+  let userId = req.params.id;
+  
+  TwitterUser.findById(userId, (err, user) => {
+    if(err) {
+      return console.log(err);
+    }
+    
+    if(user) {
+      return res.render('public-profile', {
+        user: user
+      });
+    }
+    
+    User.findById(userId, (err, userDoc) => {
+      if(err) {
+        return console.log(err);
+      }
+      return res.render('public-profile', {
+        user: userDoc
+      });
+    });
+  });
 });
 
 // Logout the user.
