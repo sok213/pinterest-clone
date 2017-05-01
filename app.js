@@ -136,7 +136,7 @@ passport.use(new LocalStrategy(
 passport.use(new TwitterStrategy({
     consumerKey: TWITTER_CONSUMER_KEY,
     consumerSecret: TWITTER_CONSUMER_SECRET,
-    callbackURL: 'http://localhost:3000/login-twitter/callback'
+    callbackURL: 'https://myinterestapp.herokuapp.com/login-twitter/callback'
   },
   function(token, tokenSecret, profile, cb) {
     TwitterUser.findOrCreate(profile, function (err, user) {
