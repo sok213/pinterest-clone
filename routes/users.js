@@ -69,9 +69,7 @@ router.post('/remove-image', authenticate, (req, res) => {
   
   // Remove image from RecentImages collection.
   RecentImages.findOneAndRemove({ imageId }, (err, doc) => {
-    if(err) {
-      console.log(err);
-    }
+    if(err) { console.log(err); }
   });
 
   if(user.twitterId) {
@@ -79,14 +77,12 @@ router.post('/remove-image', authenticate, (req, res) => {
       { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 
       (err, user) => {
         if(err) { return console.log(err); }
-        console.log('Removed image.');
     });
   } else {
     User.findByIdAndUpdate(user._id, 
       { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 
       (err, user) => {
         if(err) { return console.log(err); }
-        console.log('Removed image.');
     });
   }
 });
