@@ -9,6 +9,28 @@ body {
  overflow-y: hidden;
 }
 
+.center-text {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  border-bottom: thin solid rgb(119, 119, 119);
+}
+
+.navbar-brand {
+  font-family: 'Playfair Display SC', serif;
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.navbar {
+  background-color: white;
+  border: none;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
 .invisible-form {
   visibility: hidden;
 }
@@ -41,4 +63,11 @@ body {
 .image {
   height: auto;
   width: 100%;
+}
+
+.view-more-btn {
+  width: 100%;
+  border-radius: 0px;
+  border-left: none;
+  border-right: none;
 }

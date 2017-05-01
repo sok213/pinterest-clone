@@ -3,12 +3,3 @@
   border-radius: 0px;
   border: none;
 }
-
-.center-text {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  border-bottom: thin solid rgb(119, 119, 119);
-}

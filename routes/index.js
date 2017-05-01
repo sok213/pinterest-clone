@@ -11,8 +11,12 @@ const router = express.Router();
 router.get('/', (req, res) => {
   
   // Retrieve 10 most recent images and display to home page.
-  
-  res.render('home');
+  let findRecent20 = RecentImages.find({}).sort('-date').limit(20);
+  findRecent20.exec((err, images) => {
+    res.render('home', {
+      recentImages: images
+    });
+  });
 });
 
 // Public route for sign up.

@@ -18,7 +18,7 @@
 {{#each user.images}}
   <div class="grid-item" id={{this.imageId}}>
     <div class="grid-content">
-      <img class="image" src={{this.imageURL}} alt="Default placeholder image">
+      <img class="image" src={{this.imageURL}} alt="Default placeholder image" onerror="imgError(this);">
       <button onclick="removeImage({{convertjson this.imageId}})" class="btn btn-default remove-btn"><i class="fa fa-times" aria-hidden="true"></i>Remove</button>
     </div>
   </div>
