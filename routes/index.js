@@ -10,7 +10,6 @@ const router = express.Router();
 
 // Public route for home page.
 router.get('/', (req, res) => {
-  console.log(res.locals.user);
   // Retrieve 10 most recent images and display to home page.
   let findRecent20 = RecentImages.find({}).sort({$natural:-1}).limit(20);
   findRecent20.exec((err, images) => {

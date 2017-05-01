@@ -3,3 +3,11 @@
   border-radius: 0px;
   border: none;
 }
+
+#my-profile {
+  color: rgb(56, 154, 209);
+}
+
+#home {
+  color: grey;
+}

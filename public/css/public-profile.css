@@ -1,3 +1,11 @@
 .image {
   margin-bottom: 5px;
 }
+
+#home, #my-profile, #login, {
+  color: grey;
+}
+
+#public-view {
+  color: rgb(56, 154, 209);
+}
