@@ -25,10 +25,12 @@ router.get('/myprofile', authenticate, (req, res) => {
 router.post('/add-image-link', authenticate, (req, res) => {
   let user = res.locals.user;
   let imageURL = req.body.imageLink;
+  let imageId = mongoose.Types.ObjectId();
   
   // Save image to RecentImages document.
   let newImage = new RecentImages({
-    imageURL
+    imageURL,
+    imageId
   });
   
   newImage.save();
@@ -38,7 +40,7 @@ router.post('/add-image-link', authenticate, (req, res) => {
     TwitterUser.findByIdAndUpdate(user._id, 
       { $push: { images: { 
         imageURL,
-        imageId: mongoose.Types.ObjectId()
+        imageId
       }} }, 
       (err, user) => { 
         // Callback that does nothing 
@@ -51,7 +53,7 @@ router.post('/add-image-link', authenticate, (req, res) => {
   User.findByIdAndUpdate(user._id, 
     { $push: { images: { 
       imageURL,
-      imageId: mongoose.Types.ObjectId()
+      imageId
     }} }, 
     (err, user) => {
       // Callback that does nothing 
@@ -65,6 +67,13 @@ router.post('/remove-image', authenticate, (req, res) => {
   let user = res.locals.user;
   let imageId = req.body.imageId;
   
+  // Remove image from RecentImages collection.
+  RecentImages.findOneAndRemove({ imageId }, (err, doc) => {
+    if(err) {
+      console.log(err);
+    }
+  });
+
   if(user.twitterId) {
     TwitterUser.findByIdAndUpdate(user._id, 
       { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 
