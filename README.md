@@ -12,4 +12,4 @@ This is a clone of the famous photo sharing application called Pinterest.
 * Users can remove photos that they have added to their profile.
 ----
 ## Live Demo
-[Click here](https://myinterest.herokuapp.com/)
+[Click here](https://myinterestapp.herokuapp.com/)
