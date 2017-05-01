@@ -7,4 +7,9 @@ function removeImage(imageId) {
   };
   xhr.send('imageId=' + imageId);
   $('#'+imageId).remove();
+  $('.remove-btn').prop('disabled', true);
+  
+  setTimeout(function() {
+    $('.remove-btn').prop('disabled', false);
+  }, 1000);
 }

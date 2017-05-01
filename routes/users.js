@@ -3,6 +3,7 @@ const express  = require('express'),
 mongoose       = require('mongoose'),
 _              = require('lodash'),
 {User}         = require('./../models/user'),
+{RecentImages} = require('./../models/recent-images'),
 {TwitterUser}  = require('./../models/twitter-user'),
 {authenticate} = require('./../middleware/authenticate');
 
@@ -25,6 +26,14 @@ router.post('/add-image-link', authenticate, (req, res) => {
   let user = res.locals.user;
   let imageURL = req.body.imageLink;
   
+  // Save image to RecentImages document.
+  let newImage = new RecentImages({
+    imageURL
+  });
+  
+  newImage.save();
+  
+  // If Twitter user, save image to twitteruser document.
   if(user.twitterId) {
     TwitterUser.findByIdAndUpdate(user._id, 
       { $push: { images: { 
@@ -38,6 +47,7 @@ router.post('/add-image-link', authenticate, (req, res) => {
     return res.redirect('/users/myprofile');
   }
   
+  // If local user, save image to user(local) document.
   User.findByIdAndUpdate(user._id, 
     { $push: { images: { 
       imageURL,
@@ -62,7 +72,6 @@ router.post('/remove-image', authenticate, (req, res) => {
         if(err) { return console.log(err); }
         console.log('Removed image.');
     });
-    
   } else {
     User.findByIdAndUpdate(user._id, 
       { $pull: { images: { imageId: mongoose.Types.ObjectId(imageId) }} }, 

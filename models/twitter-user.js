@@ -17,6 +17,21 @@ let TwitterUserSchema = new mongoose.Schema({
   }
 });
 
+// Override the toJSON default method to only send back the user id and email
+// when a user object is converted back to a JSON value.
+TwitterUserSchema.methods.toJSON = function() {
+  let user = this,
+  userObject = this.toObject();
+  
+  return _.pick(userObject, 
+    [
+      '_id', 
+      'email',
+      'username',
+      'images'
+    ]);
+};
+
 TwitterUserSchema.statics.findOrCreate = function(user, callback) {
   let TwitterUser = this;
   let twitterId = user.id;

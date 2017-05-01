@@ -42,7 +42,8 @@ UserSchema.methods.toJSON = function() {
     [
       '_id', 
       'email',
-      'username'
+      'username',
+      'images'
     ]);
 };
 

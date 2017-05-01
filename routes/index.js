@@ -1,6 +1,7 @@
 const express  = require('express'),
 _              = require('lodash'),
 {User}         = require('./../models/user'),
+{RecentImages} = require('./../models/recent-images'),
 passport       = require('passport');
 
 // Retrieve Modules.
@@ -8,7 +9,9 @@ const router = express.Router();
 
 // Public route for home page.
 router.get('/', (req, res) => {
-  //console.log(res.locals);
+  
+  // Retrieve 10 most recent images and display to home page.
+  
   res.render('home');
 });
 
