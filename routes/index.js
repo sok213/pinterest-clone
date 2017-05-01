@@ -59,7 +59,7 @@ router.get('/view-profile/:id', (req, res) => {
     
     if(user) {
       return res.render('public-profile', {
-        user: user
+        someUser: user
       });
     }
     
@@ -68,7 +68,7 @@ router.get('/view-profile/:id', (req, res) => {
         return console.log(err);
       }
       return res.render('public-profile', {
-        user: userDoc
+        someUser: userDoc
       });
     });
   });
