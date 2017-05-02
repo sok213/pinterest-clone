@@ -57,6 +57,7 @@ h2 {
  
 /* Masonry Style */  
 .grid {
+  padding-left: 30px;
   margin-top: -20px;
   padding-top: 20px;
   padding-bottom: 40px;
