@@ -11,3 +11,19 @@
 #home {
   color: grey;
 }
+
+.grid-item:hover, .grid-content:hover {
+  background-color: rgb(255, 255, 255);
+}
+
+.remove-btn {
+  color: #B3081C;
+}
+
+  .remove-btn i {
+    margin-right: 5px;
+  }
+
+  .remove-btn:hover {
+    background-color: rgb(255, 255, 255);
+  }

@@ -1,15 +1,18 @@
-<link rel="stylesheet" href="/css/home.css">
-<div class="center-text header-text">
-  <h2>Explore Recent Images</h2>
+<div class="grid-container">
+  <div class="grid">
+    {{#each recentImages}}
+      <div class="grid-item">
+        <div class="grid-content">
+          <img class="image" src={{this.imageURL}} alt="Default placeholder image" onerror="imgError(this);">
+          <a class="view-more-btn" href="/view-profile/{{this.uploader.userId}}"><span style="color: #8A8A8A">From</span> {{this.uploader.username}}</a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>
 
-<div class="grid">
-  {{#each recentImages}}
-    <div class="grid-item">
-      <div class="grid-content">
-        <img class="image" src={{this.imageURL}} alt="Default placeholder image" onerror="imgError(this);">
-        <a class="btn btn-default view-more-btn" href="/view-profile/{{this.uploader.userId}}">View More from {{this.uploader.username}}</a>
-      </div>
-    </div>
-  {{/each}}
-</div>
+<footer>
+  <div class="grid-container footer-container">
+    <span style="color: rgb(157, 162, 168);"><small>*This is an unoffical mock project of Pinterest. This project is not part of the Pinterest brand.</small></span>
+  </div>
+</footer>
