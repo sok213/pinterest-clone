@@ -78,6 +78,7 @@ h2 {
 }
 
 .grid {
+  visibility: hidden;
   margin-left: auto;
   margin-right: auto;
   padding-left: 10px;

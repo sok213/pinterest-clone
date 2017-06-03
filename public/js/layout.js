@@ -21,5 +21,6 @@ setTimeout(function() {
 
 setTimeout(function() {
   $('.grid').css('opacity', '1');
+  $('.grid').css('visibility', 'visible');
   $('footer').css('visibility', 'visible');
 },1800);
