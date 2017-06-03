@@ -14,3 +14,12 @@ function imgError(image) {
   image.src = "/assets/images/placeholder.png";
   return true;
 }
+
+setTimeout(function() {
+  $('#loading').remove();
+}, 1700);
+
+setTimeout(function() {
+  $('.grid').css('opacity', '1');
+  $('footer').css('visibility', 'visible');
+},1800);
