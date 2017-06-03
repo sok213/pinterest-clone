@@ -3,6 +3,10 @@
   <h2>{{someUser.username}}'s Uploaded Images</h2>
 </div>
 
+<div id="loading">
+  Loading...
+</div>
+
 <div class="grid">
 {{#each someUser.images}}
   <div class="grid-item" id={{this.imageId}}>
